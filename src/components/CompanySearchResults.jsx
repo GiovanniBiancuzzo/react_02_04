@@ -1,36 +1,39 @@
-import React from 'react'
+import { useEffect, useState } from 'react'
 import { Container, Row, Col } from 'react-bootstrap'
 import Job from './Job'
 import uniqid from 'uniqid'
+import { useParams } from 'react-router-dom'
 
-export default class CompanySearchResults extends React.Component {
+const CompanySearchResults = () => {
 
-    state = {
-        jobs: []
-    }
+    const [jobs, setJobs] = useState([])
+    const params = useParams()
 
-    componentDidMount() {
-        this.getJobs()
-    }
+    useEffect(() => {
+        getJobs()
+    }, [])
 
-    baseEndpoint = 'https://strive-jobs-api.herokuapp.com/jobs?company='
 
-    getJobs = async () => {
-        const response = await fetch(this.baseEndpoint + this.props.match.params.companyName)
+    const baseEndpoint = 'https://strive-jobs-api.herokuapp.com/jobs?company='
+
+    const getJobs = async () => {
+        const response = await fetch(baseEndpoint + params.companyName)
         const { data } = await response.json()
 
-        this.setState({ jobs: data })
+        setJobs(data)
     }
 
-    render() {
-        return <Container>
+    return (
+        <Container>
             <Row>
                 <Col>
                     {
-                        this.state.jobs.map(jobData => <Job key={uniqid()} data={jobData} />)
+                        jobs.map(jobData => <Job key={uniqid()} data={jobData} />)
                     }
                 </Col>
             </Row>
         </Container>
-    }
+    )
 }
+
+export default CompanySearchResults

@@ -1,9 +1,9 @@
-import React from 'react'
+import { Component } from 'react'
 import { Container, Row, Col, Form } from 'react-bootstrap'
 import Job from './Job'
 import uniqid from 'uniqid'
 
-export default class MainSearch extends React.Component {
+class MainSearch extends Component {
 
     state = {
         query: '',
@@ -55,3 +55,5 @@ export default class MainSearch extends React.Component {
         )
     }
 }
+
+export default MainSearch
