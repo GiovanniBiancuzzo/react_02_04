@@ -7,17 +7,24 @@ const CompanySearchResults = () => {
   const [jobs, setJobs] = useState([])
   const params = useParams()
 
-  useEffect(() => {
-    getJobs()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
-
   const baseEndpoint = 'https://strive-jobs-api.herokuapp.com/jobs?company='
 
+  useEffect(() => {
+    getJobs()
+  }, [])
+
   const getJobs = async () => {
-    const response = await fetch(baseEndpoint + params.companyName)
-    const { data } = await response.json()
-    setJobs(data)
+    try {
+      const response = await fetch(baseEndpoint + params.companyName)
+      if (response.ok) {
+        const { data } = await response.json()
+        setJobs(data)
+      } else {
+        alert('Error fetching results')
+      }
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   return (
