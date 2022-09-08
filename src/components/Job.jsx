@@ -23,7 +23,7 @@ const Job = ({ data }) => {
                             setFavourited(!favourited);
                             dispatch({
                                 type: "ADD_TO_FAVOURITES",
-                                payload: data.company_name,
+                                payload: data,
                             });
                         }}
                     />

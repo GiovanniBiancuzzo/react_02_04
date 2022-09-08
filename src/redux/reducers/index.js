@@ -19,7 +19,7 @@ const mainReducer = (state = initialState, action) => {
             ...state,
             profile: {
                 ...state.profile,
-                favourites: state.profile.favourites.filter(company => company !== action.payload)
+                favourites: state.profile.favourites.filter(company => company.company_name !== action.payload)
             }
         };;
         default: return state;
